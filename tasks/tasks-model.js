@@ -10,7 +10,15 @@ module.exports = {
 
 // Write actual helper functions
 function getTasks() {
-  return db("tasks");
+  return db("tasks as t")
+    .select(
+      "p.name as projectName",
+      "t.description as task",
+      "p.description as projectDescription",
+      "t.completed"
+    )
+    .innerJoin("projects as p", "t.project_id", "=", "p.id")
+    .orderBy("p.name", "t.id");
 }
 
 function addTask(newTask) {

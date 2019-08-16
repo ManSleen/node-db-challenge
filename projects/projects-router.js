@@ -27,6 +27,23 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  Projects.getProjectById(id)
+    .then(project => {
+      if (project.completed === 0) {
+        project.completed = false;
+      } else {
+        project.completed = true;
+      }
+
+      res.status(200).json(project);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Could not add project to the db" });
+    });
+});
+
 router.get("/:id/tasks", (req, res) => {
   const { id } = req.params;
   Projects.getTasksByProject(id)

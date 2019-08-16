@@ -10,6 +10,7 @@ router.get("/", (req, res) => {
   Tasks.getTasks()
     .then(tasks => {
       tasks.map(task => {
+        console.log(task);
         if (task.completed === 0) {
           task.completed = false;
           return task;
