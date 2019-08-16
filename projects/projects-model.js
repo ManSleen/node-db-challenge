@@ -2,29 +2,29 @@ const db = require("../data/db-config.js");
 
 // Export the helper functions
 module.exports = {
-  getTasks,
-  addTask,
-  updateTask,
-  deleteTask
+  getProjects,
+  addProject,
+  updateProject,
+  deleteProject
 };
 
 // Write actual helper functions
-function getTasks() {
-  return db("tasks");
+function getProjects() {
+  return db("projects");
 }
 
-function addTask(newTask) {
-  return db("tasks").insert(newTask, "id");
+function addProject(newProject) {
+  return db("projects").insert(newProject, "id");
 }
 
-function updateTask(changes, id) {
-  return db("tasks")
+function updateProject(changes, id) {
+  return db("projects")
     .update(changes)
     .where({ id });
 }
 
-function deleteTask(id) {
-  return db("tasks")
+function deleteProject(id) {
+  return db("projects")
     .del()
     .where({ id });
 }
