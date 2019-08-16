@@ -27,6 +27,17 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/:id/tasks", (req, res) => {
+  const { id } = req.params;
+  Projects.getTasksByProject(id)
+    .then(tasks => {
+      res.status(200).json(tasks);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Could not add project to the db" });
+    });
+});
+
 router.post("/", (req, res) => {
   const newProject = req.body;
   Projects.addProject(newProject)

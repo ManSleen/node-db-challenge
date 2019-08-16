@@ -5,7 +5,8 @@ module.exports = {
   getProjects,
   addProject,
   updateProject,
-  deleteProject
+  deleteProject,
+  getTasksByProject
 };
 
 // Write actual helper functions
@@ -27,4 +28,16 @@ function deleteProject(id) {
   return db("projects")
     .del()
     .where({ id });
+}
+
+function getTasksByProject(id) {
+  return db("projects as p")
+    .select(
+      "p.name as projectName",
+      "p.description as projectDescription",
+      "t.description as projectTasks"
+    )
+    .innerJoin("tasks as t", "t.project_id", "=", "p.id")
+    .where({ "p.id": id })
+    .orderBy("p.name");
 }
