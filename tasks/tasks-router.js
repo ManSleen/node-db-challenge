@@ -9,6 +9,16 @@ const router = express.Router();
 router.get("/", (req, res) => {
   Tasks.getTasks()
     .then(tasks => {
+      tasks.map(task => {
+        if (task.completed === 0) {
+          task.completed = false;
+          return task;
+        } else {
+          task.completed = true;
+          return task;
+        }
+      });
+
       res.status(200).json(tasks);
     })
     .catch(err => {

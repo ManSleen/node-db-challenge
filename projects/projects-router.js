@@ -11,10 +11,10 @@ router.get("/", (req, res) => {
     .then(projects => {
       projects.map(project => {
         if (project.completed === 0) {
-          project.completed = "false";
+          project.completed = false;
           return project;
         } else {
-          project.completed = "true";
+          project.completed = true;
           return project;
         }
       });
