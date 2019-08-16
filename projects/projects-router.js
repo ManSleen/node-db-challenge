@@ -29,6 +29,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
+  let projectTasks;
   Projects.getProjectById(id)
     .then(project => {
       if (project.completed === 0) {
@@ -36,8 +37,12 @@ router.get("/:id", (req, res) => {
       } else {
         project.completed = true;
       }
-
-      res.status(200).json(project);
+      Projects.getTasksByProject(id)
+        .then(tasks => {
+          project.tasks = tasks;
+          res.status(200).json(project);
+        })
+        .catch();
     })
     .catch(err => {
       res.status(500).json({ message: "Could not add project to the db" });

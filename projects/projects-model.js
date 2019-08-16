@@ -36,7 +36,8 @@ function getTasksByProject(id) {
     .select(
       "p.name as projectName",
       "p.description as projectDescription",
-      "t.description as projectTasks"
+      "t.description as projectTasks",
+      "t.completed"
     )
     .innerJoin("tasks as t", "t.project_id", "=", "p.id")
     .where({ "p.id": id })
